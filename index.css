@@ -2,3 +2,21 @@
 html, body, #root {
   height: 100%;
 }
+.header{
+  color: aliceblue;
+}
+.header .logo {
+  width: 120px;
+  height: 31px;
+  background: rgba(255,255,255,.2);  
+  margin: 16px 24px 16px 0;
+  float: left;
+  line-height: 31px;
+  text-align: center;
+}
+
+.actions{
+  text-align: right;
+  border-bottom: solid 1px #ccc;
+  padding: 10px 0;
+}
