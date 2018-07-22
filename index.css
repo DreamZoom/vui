@@ -1,22 +1,105 @@
-
-html, body, #root {
+html,
+body,
+#root {
   height: 100%;
 }
-.header{
+.header {
   color: aliceblue;
 }
 .header .logo {
   width: 120px;
   height: 31px;
-  background: rgba(255,255,255,.2);  
+  background: rgba(255, 255, 255, 0.2);
   margin: 16px 24px 16px 0;
   float: left;
   line-height: 31px;
   text-align: center;
 }
 
-.actions{
+.actions {
   text-align: right;
   border-bottom: solid 1px #ccc;
   padding: 10px 0;
+}
+
+.ant-layout-footer {
+  background: #fff;
+}
+
+.ant-carousel .slick-slide {
+  text-align: center;
+  height: 160px;
+  line-height: 160px;
+  background: #364d79;
+  overflow: hidden;
+}
+
+.ant-carousel .slick-slide h3 {
+  color: #fff;
+}
+
+.layout-page{
+  height: 100%;
+}
+.layout-main-wapper{
+  display: flex;
+  flex-direction: column;
+}
+.layout-main{
+  flex: 1;
+  background-color: #fff !important;
+}
+
+.page-list{
+  height: 100%;
+  overflow: auto;
+}
+
+.page-item {
+  width: 180px;
+  height: 230px;
+  border-width: initial;
+  border-style: none;
+  border-color: initial;
+  border-image: initial;
+  background: 0px 0px;
+  margin: 15px auto 5px;
+  overflow: hidden;
+}
+.page-item-active {
+  background-color: rgb(151, 198, 236);
+}
+
+.editor-main{
+  height: 100%;
+  width:100%;
+}
+
+.editor-page{
+  width: 320px;
+  height: 486px;
+  margin:100px auto;
+  background-image: url(https://imgsa.baidu.com/fex/pic/item/a8ec8a13632762d084762170a9ec08fa503dc6b1.jpg);
+  position: relative;
+}
+
+.editor-page:before{
+  content: "";
+  display: block;
+  border: 0;
+  position: absolute;
+  left: -6px;
+  top: -60px;
+  bottom: -60px;
+  right: -6px;
+  z-index: 999;
+  pointer-events: none;
+  background-image: url(phonewhite.svg);
+  background-size: 100% 100%;
+}
+
+.editor-page-wapper{
+  height: 100%;
+  width:100%;
+  position: relative;
 }
