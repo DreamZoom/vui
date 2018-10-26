@@ -1,6 +1,5 @@
 import React from 'react';
 import animationController from "../utils/animation"
-import ElementProxy from "./elements/ElementProxy";
 
 class Element extends React.Component{
     onClick=(e)=>{
@@ -31,9 +30,10 @@ class Element extends React.Component{
 
         var animation_list = component.animations;
         var animationListJson = animationController.serialize(animation_list);
+
         return(
-            <div className="vui-component"  style={{...component.propertys}} data-preview-animation={animationJson} data-animation-list={animationListJson} onClick={this.onClick}>
-                 <ElementProxy {...component} />
+            <div className="vui-component" data-active={this.props.active} style={{...component.propertys}} data-preview-animation={animationJson} data-animation-list={animationListJson} onClick={this.onClick}>
+                 {component.render()}
             </div>
         )
     }

@@ -1,0 +1,63 @@
+.editor-page { 
+	width: 480px;
+	height: 729px;
+	background-image: url(./resources/editor-bg.jpg);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+	margin: auto;
+}
+.editor-page:before {
+	content: "";
+	display: block;
+	border: 0;
+	position: absolute;
+	left: -6px;
+	top: -60px;
+	bottom: -60px;
+	right: -6px;
+	z-index: 999;
+	pointer-events: none;
+	background-image: url(./resources/phonewhite.svg);
+	background-size: 100% 100%;
+}
+
+
+.editor-actions{
+    position: absolute;
+	top: 50%;
+	right: 100%;
+	transform: translate(-20px,-50%);
+	width: 40px;
+    background-color: #fff;
+    box-shadow: 0 0 16px 0 rgba(0,0,0,.16);
+}
+
+.editor-action-item{
+    text-align: center;
+	padding: 10px;
+	border-bottom: solid 1px #efefef;
+}
+
+.editor-action-item:hover{
+    background-color: #efefef;
+}
+
+.editor-tools{
+	position: absolute;
+	top: 50%;
+	left: 100%;
+	transform: translate(20px,-50%);
+	width: 40px;
+    background-color: #fff;
+    box-shadow: 0 0 16px 0 rgba(0,0,0,.16);
+}
+.editor-tool-item{
+	text-align: center;
+	padding: 10px;
+	border-bottom: solid 1px #efefef;
+}
+.editor-tool-item:hover{
+	background-color: #efefef;
+}

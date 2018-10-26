@@ -1,6 +1,8 @@
 import React from 'react';
 import { Button } from 'antd';
 import PropertyEditor from './PropertyEditor';
+import animationController from '../utils/animation';
+
 class AnimationEditor extends React.Component{
     onChange=(animation,p,v)=>{
         if(!animation) return;
@@ -13,9 +15,7 @@ class AnimationEditor extends React.Component{
     }
 
     onPreviewAnimation(animation){
-        if(this.props.onPreviewAnimation){
-            this.props.onPreviewAnimation(animation);
-        }
+        animationController.previewAnimation(animation);
     }
 
     onAddAnimation(){
@@ -53,7 +53,7 @@ class AnimationEditor extends React.Component{
 
         return attributes.map((item,i)=>{
             return(
-                <div key={i}>
+                <div key={i} >
                     <PropertyEditor {...item} value={animation[item.propertyName]} onPropertyChange={(v)=>{this.onChange(animation,item.propertyName,v)}} />
                 </div>
             );
@@ -97,7 +97,7 @@ class AnimationEditor extends React.Component{
 
     render(){
         return(
-            <div>
+            <div style={{padding:10}}>
                 {this.renderAnimations()}
                 <div className="animation-list-actions">
                     <Button type="primary" onClick={()=>{this.onAddAnimation()}}>添加动画</Button>

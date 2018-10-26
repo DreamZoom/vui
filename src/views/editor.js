@@ -11,12 +11,14 @@ import {
 } from "antd";
 
 import DragBox from "../components/DragBox";
+import UIGrid from "../components/UIGrid";
 import PropertyGrid from "../components/PropertyGrid";
 import Element from "../components/Element";
 import animationController from "../utils/animation";
 import componentFactory from "../utils/ComponentFactory";
 
 import service  from "../utils/service"
+import html2canvas from "html2canvas";
 
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
@@ -29,7 +31,6 @@ class editor extends React.Component {
       title: "未命名",
       pages: [],
       active_page_index: -1,
-     
     }
   };
 
@@ -61,7 +62,7 @@ class editor extends React.Component {
           }}
         >
          <div className="page-item-index"><span>{i+1}</span></div>
-         <div ><div className="page-item-thumbnail"></div></div>
+         <div ><div className="page-item-thumbnail"><img src={item.thumbnail} style={{width:"100%"}}/> </div></div>
          <div className="page-item-remove" onClick={()=>{ this.onPageRemove(i, item);}}><span><Icon type="close" /></span></div>
         </div>
       );
@@ -73,15 +74,42 @@ class editor extends React.Component {
       var page  = this.getActivePage();
       if(!page) return "";
       var components = page.components||[];
+      var page_propertys = page.propertys||{};
+      var active_component=this.getActiveComponent();
+
+      var rect = {left:0,top:0,width:0,height:0};
+      if(active_component){
+        let {left,top,width,height} =active_component.propertys;
+        rect = {...rect,left,top,width,height};
+      }
+
+      var rects = components.map((c)=>{
+        let {left,top,width,height} =c.propertys;
+        return {...rect,left,top,width,height}
+      });
+      rects.push({
+        left:0,top:0,width:480,height:729
+      });
       return (
-      <div className="vui-page">
+      <div className="vui-page" style={{...page_propertys}} onClick={()=>{this.onPageClick(page)}} ref="currentPage">
+         <UIGrid rect={rect} rects={rects} />
          {components.map((item,i)=>{
            return(
-             <Element key={i} component={item} onClick={()=>{this.onElementClick(item,i)}}  />
+             <Element key={i} component={item} onClick={(e)=>{this.onElementClick(item,i);e.stopPropagation();}}  />
            );
          })}
       </div>
       );
+  }
+
+  onPageClick(page){
+    if(!page) return;
+    page.active_component_index = -1;
+
+    this.setState({
+      h5: { ...this.state.h5 }
+    });
+
   }
 
   onElementClick(item,i){
@@ -213,6 +241,12 @@ class editor extends React.Component {
     });
   }
 
+  onPageChang(page){
+    this.setState({
+      h5: { ...this.state.h5 }
+    });
+  }
+
   onPreviewAnimation(animation){
     console.log(animation)
     var active_component = this.getActiveComponent();
@@ -253,6 +287,7 @@ class editor extends React.Component {
 
     var active_page_render = this.renderActivePage();
 
+    var active_page = this.getActivePage();
     var active_component = this.getActiveComponent();
    
     return (
@@ -310,18 +345,17 @@ class editor extends React.Component {
                   </div>
                 </div>
                 <div className="editor-property-panel">
-                    {active_component?<PropertyGrid onChange={(e)=>{this.onPropertyChange(e)}} onPreviewAnimation={(e)=>{this.onPreviewAnimation(e)}} component={active_component} />:""}
+                    {active_component?<PropertyGrid onPageChange={(e)=>{this.onPageChang(e)}} onChange={(e)=>{this.onPropertyChange(e)}} onPreviewAnimation={(e)=>{this.onPreviewAnimation(e)}} component={active_component} page={active_page} />:""}
                 </div>
               </div>
             </Content>
           </Layout>
         </Content>
-        <Footer style={{ textAlign: "center" }}>
-          Vui Builder ©2016 Created by Dreamzoom
-        </Footer>
       </Layout>
     );
   }
+
+
 }
 
 export default editor;

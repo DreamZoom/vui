@@ -6,18 +6,37 @@ export default {
 			var animations = $(this).data('animations');
 		});
 	},
-	previewAnimation: function() {
+	previewAnimation: function(animation) {
         var context=this;
-		$('[data-preview-animation]').each(function() {
-            var animation_str = $(this).attr('data-preview-animation');
-            if(animation_str){
-               var animation =context.deserialize(animation_str);
-               $(this).css({
-                animationName:""
+		$('[data-active=true]').each(function() {
+            if(animation){
+			   var animation_list = [animation];
+			   var animations = animation_list.map((a)=>{ return context.animationConvert(a); });
+
+			   $(this).css({
+                animation:""
                });
                setTimeout(()=>{
-                   $(this).css(animation);
-               },15);
+                   $(this).css({animation:animations.join(',')});
+               },10);
+               
+            }
+		});
+	},
+	previewAnimations: function() {
+        var context=this;
+		$('[data-active=true]').each(function() {
+            var animation_list_str = $(this).attr('data-animation-list');
+            if(animation_list_str){
+               var animation_list =context.deserialize(animation_list_str);
+			  
+			   var animations = animation_list.map((a)=>{ return context.animationConvert(a); });
+			   $(this).css({
+                animation:""
+               });
+               setTimeout(()=>{
+                   $(this).css({animation:animations.join(',')});
+               },10);
                
             }
 		});

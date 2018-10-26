@@ -1,7 +1,8 @@
 import React from 'react';
-import ReactEcharts from 'echarts-for-react';
+import ComponentShape from "./ComponentShape";
+import ReactEcharts from "echarts-for-react";
 
-class ElementProxy extends React.Component {
+class ChartShape extends ComponentShape{
 
     getOption(){
         return {
@@ -24,23 +25,20 @@ class ElementProxy extends React.Component {
         }
     }
 
-	render() {
-		if (this.props.type == 'text') {
-			return <span>{this.props.propertys.body}</span>;
-		}
-		if (this.props.type == 'image') {
-			return <img src={this.props.propertys.body} style={{ width: '100%' }} />;
-		}
-		if (this.props.type == 'chart') {
-			return (
-				<ReactEcharts
-					option={this.getOption()}
-					style={{ width: '100%', height: '100%' }}
-				/>
-			);
-		}
+    init(){
+        
+        
+        super.init();
+    }
 
-		return <div />;
-	}
+    renderShape(){
+        return (
+            <ReactEcharts
+                option={this.getOption()}
+                style={{ width: '100%', height: '100%' }}
+            />
+        );
+    }
 }
-export default ElementProxy;
+
+export default ChartShape;
